@@ -40,20 +40,28 @@ void swap_DBuffer(void)
     LPC_LCD->UPBASE = (uint32_t)buffer;
 }
 
-void drawInfo() {
+void draw_sidebar(int score, int elapsed_time, int lives) {
 		graphics->fillScreen(background);
 		graphics->fillRect(0,0,480,22,WHITE);
 		graphics->drawRect(0,0,480,272,WHITE);
 }
 
-void drawShip() {
+void drawMissiles(missile *shots) {
 }
 
+void drawRocks(rock *asteroids) {
+}
 
+void drawShip(ship player) {
+}
 
 void draw(void)
 {
-		drawInfo();
-		drawShip();
+	
+		draw_sidebar(score, elapsed_time, lives );
+		drawMissiles(shots);
+		drawRocks(asteroids);
+		drawShip(player);
+
 		swap_DBuffer();
 }
