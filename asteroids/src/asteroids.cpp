@@ -35,9 +35,7 @@ bool paused = true;
 DigitalIn userbutton(P2_10,PullUp);
 int main()
 {
-
-    init_DBuffer();
-    
+    init_DBuffer();    
 
     view.attach( draw, 0.025);
     model.attach( physics, Dt);

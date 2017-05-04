@@ -15,15 +15,11 @@
 #include "asteroids.h"
 #include "model.h"
 #include "utils.h"
+#include "objects.h"
 
 Display *graphics = Display::theDisplay();
 
-const colour_t background = rgb(0,51,102); /* Midnight Blue */
-
-
-const coordinate_t shape[] = {
-    {10,0}, {-5,5}, {-5,-5}
-};
+const colour_t background = rgb(0,0,0); /* Black */
 
 /* double buffering functions */
 void init_DBuffer(void)
@@ -40,12 +36,29 @@ void swap_DBuffer(void)
     LPC_LCD->UPBASE = (uint32_t)buffer;
 }
 
+void draw_sidebar(int score, int elapsed_time, int lives) {
+		graphics->fillScreen(background);
+		graphics->fillRect(0,0,480,22,WHITE);
+		graphics->drawRect(0,0,480,272,WHITE);
+}
 
+void drawMissiles(void) {
+}
+
+void drawRocks(void) {
+	
+}
+
+void drawShip(ship player) {
+}
 
 void draw(void)
 {
-    graphics->fillScreen(background);
+	
+		draw_sidebar(score, elapsed_time, lives );
+		drawMissiles();
+		drawRocks();
+		drawShip(player);
 
-    
-    swap_DBuffer();
+		swap_DBuffer();
 }
