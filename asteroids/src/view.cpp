@@ -18,7 +18,7 @@
 
 Display *graphics = Display::theDisplay();
 
-const colour_t background = rgb(0,51,102); /* Midnight Blue */
+const colour_t background = rgb(0,0,0); /* Black */
 
 
 const coordinate_t shape[] = {
@@ -40,12 +40,20 @@ void swap_DBuffer(void)
     LPC_LCD->UPBASE = (uint32_t)buffer;
 }
 
+void drawInfo() {
+		graphics->fillScreen(background);
+		graphics->fillRect(0,0,480,22,WHITE);
+		graphics->drawRect(0,0,480,272,WHITE);
+}
+
+void drawShip() {
+}
+
 
 
 void draw(void)
 {
-    graphics->fillScreen(background);
-
-    
-    swap_DBuffer();
+		drawInfo();
+		drawShip();
+		swap_DBuffer();
 }

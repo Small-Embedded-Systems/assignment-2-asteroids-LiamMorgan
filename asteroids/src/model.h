@@ -5,7 +5,7 @@ struct point {
 typedef struct point coordinate_t;
 typedef struct point vector_t;
 
-/* Some insitial struct types if you want to usd them */
+/* Some insitial struct types if you want to use them */
 struct ship {
     coordinate_t p;
     vector_t     v;
