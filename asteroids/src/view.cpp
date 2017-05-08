@@ -15,7 +15,6 @@
 #include "asteroids.h"
 #include "model.h"
 #include "utils.h"
-#include "objects.h"
 
 Display *graphics = Display::theDisplay();
 
@@ -36,29 +35,22 @@ void swap_DBuffer(void)
     LPC_LCD->UPBASE = (uint32_t)buffer;
 }
 
-void draw_sidebar(int score, int elapsed_time, int lives) {
+void drawInfo() {
 		graphics->fillScreen(background);
-		graphics->fillRect(0,0,480,22,WHITE);
 		graphics->drawRect(0,0,480,272,WHITE);
+		for(int i=1;i<=lives;i++) {			
+			graphics->drawTriangle(i*20,10,(i*20)-5,30,(i*20)+5,30, WHITE);
+		}
 }
 
-void drawMissiles(void) {
+void drawShip() {
 }
 
-void drawRocks(void) {
-	
-}
 
-void drawShip(ship player) {
-}
 
 void draw(void)
 {
-	
-		draw_sidebar(score, elapsed_time, lives );
-		drawMissiles();
-		drawRocks();
-		drawShip(player);
-
+		drawInfo();
+		drawShip();
 		swap_DBuffer();
 }

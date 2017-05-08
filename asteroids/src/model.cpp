@@ -31,7 +31,6 @@ node_t *initialise()
 
 void physics(void)
 {
-    //update positions of everything
-		//remove old shots and rocks from list
+    
 }
 

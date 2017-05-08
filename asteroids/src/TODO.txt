@@ -1,4 +1,0 @@
-Draw xbm
-Draw missles
-Draw ship
-control movement
