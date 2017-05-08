@@ -6,10 +6,12 @@
 
 /* C libraries */
 #include <stdlib.h>
+	
 #include <stdint.h>
 #include <stdbool.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 
 /* hardware platform libraries */
 #include <display.h>
@@ -25,7 +27,6 @@ float elapsed_time;
 int   score;
 int   lives;
 struct ship player;
-
 float Dt = 0.01f;
 
 Ticker model, view, controller;
@@ -35,7 +36,6 @@ bool paused = true;
 DigitalIn userbutton(P2_10,PullUp);
 int main()
 {
-
     init_DBuffer();
     
 
@@ -53,18 +53,7 @@ int main()
     paused = false;
     
     while(true) {
-        /* do one of */
-        /* Wait until all lives have been used
-        while(lives>0){
-            // possibly do something game related here
-            wait_ms(200);
-        }
-        */
-        /* Wait until each life is lost
-        while( inPlay ){
-            // possibly do something game related here
-            wait_ms(200);
-        }
-        */
+			
+        
     }
 }

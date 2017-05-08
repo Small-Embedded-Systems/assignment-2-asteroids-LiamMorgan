@@ -15,11 +15,11 @@
 #include "asteroids.h"
 #include "model.h"
 #include "utils.h"
+#include "objects.h"
 
 Display *graphics = Display::theDisplay();
-
 const colour_t background = rgb(0,0,0); /* Black */
-
+int xRock=100,yRock=100;
 /* double buffering functions */
 void init_DBuffer(void)
 {   /* initialise the LCD driver to use second frame in buffer */
@@ -46,11 +46,21 @@ void drawInfo() {
 void drawShip() {
 }
 
+void drawObjects() {
+	xRock+=4;
+	graphics->drawBitmap(xRock,yRock,asteroid1,16,16,WHITE);
+}
 
+void drawRockets() {
+	/*graphics->setCursor(150,150);
+	graphics->printf("Shots: %d", shots);*/
+}
 
 void draw(void)
 {
 		drawInfo();
 		drawShip();
+		drawRockets();
+		drawObjects();
 		swap_DBuffer();
 }

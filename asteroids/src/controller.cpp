@@ -34,11 +34,14 @@ bool joyStick(btnId_t b) {
 
 void controls(void)
 {
-	if(joyStick(left)) {
+	if(joyStick(right)) {
 		lives--;
 	}
-	if(joyStick(right)) {
+	if(joyStick(left)) {
 		lives++;
+	}
+	if(joyStick(centre)) {
+		//shots++;
 	}
 }
 

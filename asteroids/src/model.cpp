@@ -11,14 +11,13 @@
 
 /* If you want to initialise a linked list:
     You'll have to replace node_t with the right type
-
-typedef struct node {
-    some data per node
-    struct node *next;
-} node_t;
+*/
+typedef struct shots {
+    struct shots *next;
+} shots_t;
 const size_t MAXSize = 10;
-node_t data[MAXSize];
-node_t *initialise()
+shots_t data[MAXSize];
+shots_t *initialise()
 {
     int c;
     for(c=0 ; c<(MAXSize-1) ; c++){
@@ -27,10 +26,11 @@ node_t *initialise()
     data[c].next = NULL;
     return data;
 }
-*/
 
 void physics(void)
 {
-    
+    if(xRock >= 490) {
+			xRock = 0;
+		}
 }
 
