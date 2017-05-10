@@ -30,30 +30,16 @@ struct ship player;
 float Dt = 0.01f;
 
 Ticker model, view, controller;
-
 bool paused = true;
 /* The single user button needs to have the PullUp resistor enabled */
 DigitalIn userbutton(P2_10,PullUp);
-int main()
-{
+int main() {
     init_DBuffer();
-    
-
+	
     view.attach( draw, 0.025);
     model.attach( physics, Dt);
     controller.attach( controls, 0.1);
-    
-    lives = 3;
-    
-    /* Pause to start */
-    while( userbutton.read() ){ /* remember 1 is not pressed */
-        paused=true;
-        wait_ms(100);
-    }
-    paused = false;
-    
+    lives = 3;    
     while(true) {
-			
-        
     }
 }

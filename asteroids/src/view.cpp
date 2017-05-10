@@ -18,9 +18,9 @@
 #include "objects.h"
 
 Display *graphics = Display::theDisplay();
-const colour_t background = rgb(0,0,0); /* Black */
-int xRock=100,yRock=100;
+
 /* double buffering functions */
+
 void init_DBuffer(void)
 {   /* initialise the LCD driver to use second frame in buffer */
     uint16_t *bufferbase = graphics->getFb();
@@ -36,31 +36,33 @@ void swap_DBuffer(void)
 }
 
 void drawInfo() {
-		graphics->fillScreen(background);
+		graphics->fillScreen(BLACK);
 		graphics->drawRect(0,0,480,272,WHITE);
 		for(int i=1;i<=lives;i++) {			
 			graphics->drawTriangle(i*20,10,(i*20)-5,30,(i*20)+5,30, WHITE);
 		}
+		graphics->setCursor(400,20);
+		graphics->printf("Count = %d", rockCount);
 }
 
 void drawShip() {
 }
 
-void drawObjects() {
-	xRock+=4;
-	graphics->drawBitmap(xRock,yRock,asteroid1,16,16,WHITE);
+void drawShots() {
 }
 
-void drawRockets() {
-	/*graphics->setCursor(150,150);
-	graphics->printf("Shots: %d", shots);*/
+void drawRocks(rock_t *head) {
+	//Get Position of every rock from linked list and draw it
+	//Model handles the updating of position by using rock->p.x += rock->v.x etc.
+	//I think iterate method has to go here, not in model
+	//Pressing cntr on control should  draw new randomly moving rock on screen, and count++
 }
 
 void draw(void)
-{
+{	
 		drawInfo();
-		drawShip();
-		drawRockets();
-		drawObjects();
+		//drawShip();
+		//drawShots();
+		//drawRocks(rocks);
 		swap_DBuffer();
 }
