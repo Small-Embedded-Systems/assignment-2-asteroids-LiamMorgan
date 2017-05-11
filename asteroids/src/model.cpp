@@ -84,21 +84,6 @@ void updateShots(shot_t* head) {
 	}
 }
 
-/*void collision(shot_t* shotHead, rock_t* rockHead) {
-	shot_t *shotCurrent = shotHead; rock_t *rockCurrent = rockHead;
-	while(shotCurrent != NULL) {
-		while(rockCurrent != NULL) {
-			if(shotCurrent->p.x == rockCurrent->p.x || shotCurrent->p.x == rockCurrent->p.x+16 ||
-					shotCurrent->p.y == rockCurrent->p.y || shotCurrent->p.y == rockCurrent->p.y+16){
-						free(rockCurrent);
-						rockCount--;
-			}
-			rockCurrent = rockCurrent->next;
-		}
-		shotCurrent = shotCurrent->next;
-	}	
-}*/
-
 void physics(void) {
 	frames++;
 	newRock(asteroids);	

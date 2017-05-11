@@ -50,13 +50,15 @@ void initialise() {
 
 int main() {
 		srand(time(0));
-				initialise();
+		initialise();
+	
     init_DBuffer();	
     view.attach( draw, 0.025);
     model.attach( physics, Dt);
     controller.attach( controls, 0.1);
+	
     lives = 3;    
     while(true) {
     }
-}
 
+}
