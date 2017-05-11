@@ -3,34 +3,85 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 #include "model.h"
 #include "utils.h"
 #include "asteroids.h"
 
-
-/* If you want to initialise a linked list:
-    You'll have to replace node_t with the right type
-*/
-typedef struct shots {
-    struct shots *next;
-} shots_t;
-const size_t MAXSize = 10;
-shots_t data[MAXSize];
-shots_t *initialise()
-{
-    int c;
-    for(c=0 ; c<(MAXSize-1) ; c++){
-        data[c].next = &data[c+1];
+void newRock(rock_t* head) {
+	if(frames % 100 == 0 && rockCount < 15 ) {
+    rock_t* current = head;
+    while (current->next != NULL) {
+        current = current->next;
     }
-    data[c].next = NULL;
-    return data;
+    current->next = (rock_t*)malloc(sizeof(rock_t));
+    current->next->p.x = randrange(16, 465);current->next->p.y =  randrange(16, 257);
+		current->next->v.x = randrange(-2, 3);current->next->v.y = randrange(-2, 3);
+		if(current->next->v.x == 0 && current->next->v.y == 0)
+				current->next->v.x = 1;
+    current->next->next = NULL;
+		rockCount++;
+	}
 }
 
-void physics(void)
-{
-    if(xRock >= 490) {
-			xRock = 0;
+void updateRocks(rock_t* head) {
+	rock_t* current = head;
+	if (current != NULL) {
+			current->p.x += current->v.x;current->p.y += current->v.y;
+		if(current->p.x > 496) {
+			current->p.x = -16;
 		}
+		if(current->p.x < -16) {
+			current->p.x = 496;
+		}
+		if(current->p.y > 290) {
+			current->p.y = -20;
+		}
+		if(current->p.y < -20) {
+			current->p.y = 290;
+		}
+			current = current->next;
+			updateRocks(current);
+  }
+}
+ 
+void newShot(shot_t* head) {
+	shot_t* current = head;
+	while (current->next != NULL) {
+			current = current->next;
+	}
+	current->next = (shot_t*)malloc(sizeof(shot_t));
+	current->next->p.x = 200;current->next->p.y =  200;
+	current->next->v.x = 2;current->next->v.y = 0;
+	current->next->age = frames;
+	current->next->next = NULL;
+	shotCount++;
 }
 
+void updateShots(shot_t* head) {
+	shot_t *current = head;
+	while(current != NULL) {
+		current->p.x += current->v.x;current->p.y += current->v.y;
+		if(current->p.x > 496) {
+			current->p.x = -16;
+		}
+		if(current->p.x < -16) {
+			current->p.x = 496;
+		}
+		if(current->p.y > 290) {
+			current->p.y = -20;
+		}
+		if(current->p.y < -20) {
+			current->p.y = 290;
+		}		
+		current = current->next;
+	}
+}
+
+void physics(void) {
+	frames++;
+	newRock(asteroids);	
+	updateRocks(asteroids);
+	updateShots(shots);
+}

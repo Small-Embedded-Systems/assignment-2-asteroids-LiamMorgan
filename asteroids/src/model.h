@@ -2,6 +2,7 @@
 struct point {
     float x,y;
 };
+
 typedef struct point coordinate_t;
 typedef struct point vector_t;
 
@@ -12,15 +13,19 @@ struct ship {
 };
 
 /* initial struts for building linked lists */
-struct rock {
-    coordinate_t p;
-    struct rock *next;
-};
+typedef struct rock_t {
+		coordinate_t p;
+		vector_t v;
+    struct rock_t* next;
+} rock_t;
 
-struct missile {
+typedef struct shot_t {
     coordinate_t p;
-    struct missile *next;
-};
+		vector_t v;
+		int age;
+    struct shot_t* next;
+} shot_t;
 
 
 void physics(void);
+void newShot(shot_t *head);

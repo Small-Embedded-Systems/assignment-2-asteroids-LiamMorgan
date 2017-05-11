@@ -18,9 +18,9 @@
 #include "objects.h"
 
 Display *graphics = Display::theDisplay();
-const colour_t background = rgb(0,0,0); /* Black */
-int xRock=100,yRock=100;
+
 /* double buffering functions */
+
 void init_DBuffer(void)
 {   /* initialise the LCD driver to use second frame in buffer */
     uint16_t *bufferbase = graphics->getFb();
@@ -36,31 +36,57 @@ void swap_DBuffer(void)
 }
 
 void drawInfo() {
-		graphics->fillScreen(background);
+		graphics->fillScreen(BLACK);
 		graphics->drawRect(0,0,480,272,WHITE);
 		for(int i=1;i<=lives;i++) {			
 			graphics->drawTriangle(i*20,10,(i*20)-5,30,(i*20)+5,30, WHITE);
 		}
+		graphics->setTextSize(1);
+		graphics->setCursor(400,20);
+		graphics->printf("Frames = %d", frames);
+		graphics->setCursor(360,40);
+		graphics->printf("rockCount = %d", rockCount);
+		graphics->setCursor(360,60);
+		graphics->printf("shotCount = %d", shotCount);
 }
 
 void drawShip() {
+	graphics->fillTriangle(
+	player.p.x,player.p.y,player.p.x-5,player.p.y+20,player.p.x+5,player.p.y+20, WHITE);
 }
 
-void drawObjects() {
-	xRock+=4;
-	graphics->drawBitmap(xRock,yRock,asteroid1,16,16,WHITE);
+void drawShots(shot_t *head) {
+	shot_t* current = head;
+	while (current != NULL) {
+		graphics->drawCircle(current->p.x,current->p.y ,2, WHITE);
+		current = current->next;
+  }
 }
 
-void drawRockets() {
-	/*graphics->setCursor(150,150);
-	graphics->printf("Shots: %d", shots);*/
+void drawRocks(rock_t *head) {
+	rock_t* current = head;
+	while (current != NULL) {
+		graphics->drawBitmap(current->p.x,current->p.y,asteroid1, 16,16, WHITE);
+		current = current->next;
+  }
+}
+
+void endScreen() {
+	graphics->fillScreen(BLACK);
+	graphics->drawRect(0,0,480,272,WHITE);
+	graphics->setCursor(20, 136);
+	graphics->setTextSize(4);
+	graphics->printf("Game over.");
+	graphics->setCursor(20, 200);
+	graphics->setTextSize(2);
+	graphics->printf("Press start to play again.");
 }
 
 void draw(void)
-{
-		drawInfo();
-		drawShip();
-		drawRockets();
-		drawObjects();
-		swap_DBuffer();
+{	
+	drawInfo();
+	drawShip();
+	drawShots(shots);
+	drawRocks(asteroids);
+	swap_DBuffer();
 }

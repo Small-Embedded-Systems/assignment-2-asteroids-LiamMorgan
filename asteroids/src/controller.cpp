@@ -15,10 +15,10 @@
 
 /* Joystick 5-way switch
 */
+
 typedef enum { left,down,right,up,centre } btnId_t; 
 DigitalIn joystick[] = {P5_0, P5_1, P5_4, P5_2, P5_3};
 bool jsPrsdAndRlsd(btnId_t b);
-
 bool joyStick(btnId_t b) {
 	bool result = false;
 	uint32_t state;
@@ -40,8 +40,8 @@ void controls(void)
 	if(joyStick(left)) {
 		lives++;
 	}
-	if(joyStick(centre)) {
-		//shots++;
+	if(joyStick(centre)) {		
+		newShot(shots);
 	}
 }
 
