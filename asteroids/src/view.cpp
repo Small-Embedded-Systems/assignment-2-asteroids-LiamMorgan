@@ -45,26 +45,36 @@ void drawInfo() {
 		graphics->printf("Frames = %d", frames);
 		graphics->setCursor(360,40);
 		graphics->printf("rockCount = %d", rockCount);
+		graphics->setCursor(360,60);
+		graphics->printf("shotCount = %d", shotCount);
 }
 
 void drawShip() {
 }
 
-void drawShots() {
+void drawShots(shot_t *head) {
+	shot_t* current = head;
+	if (current != NULL) {
+			graphics->drawCircle(current->p.x,current->p.y ,2, WHITE);
+			current = current->next;
+			drawShots(current);
+  }
 }
 
 void drawRocks(rock_t *head) {
-	//Get Position of every rock from linked list and draw it
-	//Model handles the updating of position by using rock->p.x += rock->v.x etc.
-	//I think iterate method has to go here, not in model
-	//Pressing cntr on control should  draw new randomly moving rock on screen, and count++
+	rock_t* current = head;
+	if (current != NULL) {
+			graphics->drawBitmap(current->p.x,current->p.y,asteroid1, 16,16, WHITE);
+			current = current->next;
+			drawRocks(current);
+  }
 }
 
 void draw(void)
 {	
 		drawInfo();
 		//drawShip();
-		//drawShots();
-		//drawRocks(rocks);
+		drawShots(shots);
+		drawRocks(asteroids);
 		swap_DBuffer();
 }

@@ -41,6 +41,7 @@ void controls(void)
 		lives++;
 	}
 	if(joyStick(centre)) {
+		newShot(shots);
 	}
 }
 
