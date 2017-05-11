@@ -9,6 +9,8 @@
 #include "utils.h"
 #include "asteroids.h"
 
+float pi = 3.1415926f;
+
 void newRock(rock_t* head) {
 	if(frames % 100 == 0 && rockCount < 15 ) {
     rock_t* current = head;
@@ -77,6 +79,34 @@ void updateShots(shot_t* head) {
 		}		
 		current = current->next;
 	}
+}
+double x, x1, x2, y, y1, y2;
+float angle = 0.0, angleMove = 0.05;
+int radius =15;
+
+
+void shipRot() {
+	x = radius * cos (angle);
+	x1 = radius * sin (angle + 2.35619);
+	x2 = radius * cos (angle + 3.92699);
+	y = radius * sin (angle);
+	y1 = radius * cos (angle + 2.35619);
+	y2 = radius * sin (angle + 3.92699);
+	
+	shipX = x + shipX;
+	shipY = y + shipY - 10;
+	shipXL = x1 + shipX + 5;
+	shipYL = y1 + shipX + 10;
+	shipXR = x2 + shipX - 5;
+	shipYR = y2 + shipX + 10;
+	
+	if(angle > 2 * pi) {
+		angle = 0.1;
+	}
+	if(angle < 0) {
+		angle = (2 * pi) - 0.1;
+	}
+	
 }
 
 void physics(void) {

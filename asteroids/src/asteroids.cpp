@@ -26,15 +26,23 @@
 float elapsed_time; 
 int   score;
 int   lives;
+float Dt = 0.01f;
+bool paused = true;
+
 rock_t *asteroids;
 shot_t *shots;
 int frames;
 int rockCount; int shotCount;
 struct ship player;
-float Dt = 0.01f;
+double shipX = 100;
+double shipXL = 95;
+double shipXR = 105;
+double shipY = 100;
+double shipYL = 120;
+double shipYR = 120;
 
 Ticker model, view, controller;
-bool paused = true;
+
 /* The single user button needs to have the PullUp resistor enabled */
 DigitalIn userbutton(P2_10,PullUp);
 
@@ -45,9 +53,7 @@ void initialise() {
 		asteroids->next = NULL;
 	
 		shots = static_cast<shot_t*>(malloc(sizeof(shot_t)));
-		shots->next = NULL;	
-	
-		player.p.x = 100; player.p.y = 100;
+		shots->next = NULL;
 }
 
 int main() {

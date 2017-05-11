@@ -9,5 +9,3 @@ extern struct shot_t *shots;  /* array of missiles / pointer to linked-list */
 extern const float Dt; /* Time step for physics, needed for consistent motion */
 extern int rockCount; extern int shotCount;
 extern int frames;
-
-extern bool inPlay();
