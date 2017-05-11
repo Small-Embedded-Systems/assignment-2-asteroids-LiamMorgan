@@ -40,7 +40,8 @@ void controls(void)
 	if(joyStick(left)) {
 		lives++;
 	}
-	if(joyStick(centre)) {
+	if(joyStick(centre)) {		
+		newShot(shots);
 	}
 }
 

@@ -51,6 +51,8 @@ void drawInfo() {
 }
 
 void drawShip() {
+	graphics->fillTriangle(
+	player.p.x,player.p.y,player.p.x-5,player.p.y+20,player.p.x+5,player.p.y+20, WHITE);
 }
 
 void drawShots(shot_t *head) {
@@ -83,7 +85,7 @@ void endScreen() {
 void draw(void)
 {	
 	drawInfo();
-	//drawShip();
+	drawShip();
 	drawShots(shots);
 	drawRocks(asteroids);
 	swap_DBuffer();

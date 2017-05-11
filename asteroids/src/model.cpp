@@ -47,24 +47,21 @@ void updateRocks(rock_t* head) {
 }
  
 void newShot(shot_t* head) {
-	if(frames % 100 == 0 && shotCount < 15 ) {
-			shot_t* current = head;
-			while (current->next != NULL) {
-					current = current->next;
-			}
-			current->next = (shot_t*)malloc(sizeof(shot_t));
-			current->next->p.x = randrange(16, 465);current->next->p.y =  randrange(16, 257);
-			current->next->v.x = randrange(-2, 3);current->next->v.y = randrange(-2, 3);
-			if(current->next->v.x == 0 && current->next->v.y == 0)
-					current->next->v.x = 1;
-			current->next->next = NULL;
-			shotCount++;
+	shot_t* current = head;
+	while (current->next != NULL) {
+			current = current->next;
 	}
+	current->next = (shot_t*)malloc(sizeof(shot_t));
+	current->next->p.x = 200;current->next->p.y =  200;
+	current->next->v.x = 2;current->next->v.y = 0;
+	current->next->age = frames;
+	current->next->next = NULL;
+	shotCount++;
 }
 
 void updateShots(shot_t* head) {
 	shot_t *current = head;
-	if(current != NULL) {
+	while(current != NULL) {
 		current->p.x += current->v.x;current->p.y += current->v.y;
 		if(current->p.x > 496) {
 			current->p.x = -16;
@@ -77,10 +74,8 @@ void updateShots(shot_t* head) {
 		}
 		if(current->p.y < -20) {
 			current->p.y = 290;
-		}
-		
+		}		
 		current = current->next;
-		updateShots(current);
 	}
 }
 
@@ -88,6 +83,5 @@ void physics(void) {
 	frames++;
 	newRock(asteroids);	
 	updateRocks(asteroids);
-	newShot(shots);
 	updateShots(shots);
 }

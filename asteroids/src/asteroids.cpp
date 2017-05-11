@@ -46,6 +46,8 @@ void initialise() {
 	
 		shots = static_cast<shot_t*>(malloc(sizeof(shot_t)));
 		shots->next = NULL;	
+	
+		player.p.x = 100; player.p.y = 100;
 }
 
 int main() {
