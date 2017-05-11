@@ -6,5 +6,6 @@ extern int   lives;       /* lives remaining */
 extern struct ship player;
 extern struct rock_t *asteroids; /* array of rocks / pointer to linked-list */
 extern struct missile *shots;  /* array of missiles / pointer to linked-list */
-
 extern const float Dt; /* Time step for physics, needed for consistent motion */
+extern int rockCount;
+extern int frames;

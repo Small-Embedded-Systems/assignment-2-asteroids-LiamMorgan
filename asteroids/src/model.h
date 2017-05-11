@@ -16,7 +16,7 @@ struct ship {
 typedef struct rock_t {
 		coordinate_t p;
 		vector_t v;
-    rock_t *next;
+    struct rock_t* next;
 } rock_t;
 
 struct missile {
@@ -26,6 +26,3 @@ struct missile {
 
 
 void physics(void);
-
-extern int rockCount;
-void addRockEnd(rock_t *head);

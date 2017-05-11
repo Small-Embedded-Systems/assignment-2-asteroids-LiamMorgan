@@ -42,7 +42,9 @@ void drawInfo() {
 			graphics->drawTriangle(i*20,10,(i*20)-5,30,(i*20)+5,30, WHITE);
 		}
 		graphics->setCursor(400,20);
-		graphics->printf("Count = %d", rockCount);
+		graphics->printf("Frames = %d", frames);
+		graphics->setCursor(360,40);
+		graphics->printf("rockCount = %d", rockCount);
 }
 
 void drawShip() {
