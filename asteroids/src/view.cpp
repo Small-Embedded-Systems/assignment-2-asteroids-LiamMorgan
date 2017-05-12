@@ -42,25 +42,17 @@ void drawInfo() {
 			graphics->drawTriangle(i*20,10,(i*20)-5,30,(i*20)+5,30, WHITE);
 		}
 		graphics->setTextSize(1);
-		graphics->setCursor(20,100);
+		graphics->setCursor(400,20);
 		graphics->printf("Frames = %d", frames);
-		graphics->setCursor(20,120);
+		graphics->setCursor(360,40);
 		graphics->printf("rockCount = %d", rockCount);
-		graphics->setCursor(20,140);
+		graphics->setCursor(360,60);
 		graphics->printf("shotCount = %d", shotCount);
-		graphics->setCursor(20,160);
-		graphics->printf("Paused status = %d", paused);
 }
 
 void drawShip() {
-	if(shields > 0) {
-		for(int i = 0; i < shields; i++) {
-			graphics->drawCircle(shipCX, shipCY, 20+(i*3), BLUE);
-		}		
-	}
-	graphics->drawLine(shipX,shipY,shipXL,shipYL,WHITE); //Left
-	graphics->drawLine(shipXL,shipYL,shipXR,shipYR,WHITE); ////Right
-	graphics->drawLine(shipXR,shipYR,shipX,shipY,WHITE);//Bottom			
+	graphics->fillTriangle(
+	player.p.x,player.p.y,player.p.x-5,player.p.y+20,player.p.x+5,player.p.y+20, WHITE);
 }
 
 void drawShots(shot_t *head) {
@@ -77,6 +69,17 @@ void drawRocks(rock_t *head) {
 		graphics->drawBitmap(current->p.x,current->p.y,asteroid1, 16,16, WHITE);
 		current = current->next;
   }
+}
+
+void endScreen() {
+	graphics->fillScreen(BLACK);
+	graphics->drawRect(0,0,480,272,WHITE);
+	graphics->setCursor(20, 136);
+	graphics->setTextSize(4);
+	graphics->printf("Game over.");
+	graphics->setCursor(20, 200);
+	graphics->setTextSize(2);
+	graphics->printf("Press start to play again.");
 }
 
 void draw(void)
