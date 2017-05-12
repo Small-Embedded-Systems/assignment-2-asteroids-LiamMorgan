@@ -42,17 +42,25 @@ void drawInfo() {
 			graphics->drawTriangle(i*20,10,(i*20)-5,30,(i*20)+5,30, WHITE);
 		}
 		graphics->setTextSize(1);
-		graphics->setCursor(360,20);
+		graphics->setCursor(20,100);
 		graphics->printf("Frames = %d", frames);
-		graphics->setCursor(360,40);
+		graphics->setCursor(20,120);
 		graphics->printf("rockCount = %d", rockCount);
-		graphics->setCursor(360,60);
+		graphics->setCursor(20,140);
 		graphics->printf("shotCount = %d", shotCount);
+		graphics->setCursor(20,160);
+		graphics->printf("Paused status = %d", paused);
 }
 
 void drawShip() {
-	graphics->fillTriangle(
-	shipX,shipY,shipXL,shipYL,shipXR,shipYR, WHITE);
+	if(shields > 0) {
+		for(int i = 0; i < shields; i++) {
+			graphics->drawCircle(shipCX, shipCY, 20+(i*3), BLUE);
+		}		
+	}
+	graphics->drawLine(shipX,shipY,shipXL,shipYL,WHITE); //Left
+	graphics->drawLine(shipXL,shipYL,shipXR,shipYR,WHITE); ////Right
+	graphics->drawLine(shipXR,shipYR,shipX,shipY,WHITE);//Bottom			
 }
 
 void drawShots(shot_t *head) {
