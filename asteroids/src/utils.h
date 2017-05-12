@@ -20,8 +20,6 @@ typedef uint16_t colour_t;
 int randrange(int from, int to);
 
 float dist(coordinate_t p1, coordinate_t p2);
-
-=======
 /* utility functions */
 
 /* some numerical helper functions */
