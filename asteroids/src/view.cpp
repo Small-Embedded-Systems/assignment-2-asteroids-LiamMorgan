@@ -39,9 +39,20 @@ void drawInfo() {
 		graphics->fillScreen(BLACK);
 		graphics->drawRect(0,0,480,272,WHITE);
 		for(int i=1;i<=lives;i++) {			
-			graphics->drawTriangle(i*20,10,(i*20)-5,30,(i*20)+5,30, WHITE);
+			graphics->drawTriangle(i*15,22,(i*15)-5,42,(i*15)+5,42, WHITE);
 		}
 		graphics->setTextSize(1);
+		graphics->setCursor(10,10);
+		graphics->printf("Lives");
+		graphics->setCursor(230,10);
+		graphics->printf("Score");
+		graphics->setCursor(240,22);
+		graphics->printf("%d", score);
+		graphics->setCursor(430,10);
+		graphics->printf("Shields");
+		for(int i=1;i<=shields;i++) {			
+			graphics->drawCircle(i*22+400, 30, 8, BLUE);
+    }
 		graphics->setCursor(400,20);
 		graphics->printf("Frames = %d", frames);
 		graphics->setCursor(360,40);

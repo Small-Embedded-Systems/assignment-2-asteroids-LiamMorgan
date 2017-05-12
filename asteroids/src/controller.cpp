@@ -42,6 +42,12 @@ void controls(void)
 	}
 	if(joyStick(centre)) {		
 		newShot(shots);
+	
+	if(joyStick(down)) {
+		moveShip();
+	}
+	if(joyStick(up)) {
+		score++;
 	}
 }
 
