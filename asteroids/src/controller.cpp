@@ -50,4 +50,3 @@ void controls(void)
 		score++;
 	}
 }
-
