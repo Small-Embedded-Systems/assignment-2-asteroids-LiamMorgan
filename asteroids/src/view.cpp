@@ -39,31 +39,28 @@ void drawInfo() {
 		graphics->fillScreen(BLACK);
 		graphics->drawRect(0,0,480,272,WHITE);
 		for(int i=1;i<=lives;i++) {			
-			graphics->drawTriangle(i*15,22,(i*15)-5,42,(i*15)+5,42, WHITE);
+			graphics->drawTriangle(i*20,10,(i*20)-5,30,(i*20)+5,30, WHITE);
 		}
 		graphics->setTextSize(1);
-		graphics->setCursor(10,10);
-		graphics->printf("Lives");
-		graphics->setCursor(230,10);
-		graphics->printf("Score");
-		graphics->setCursor(240,22);
-		graphics->printf("%d", score);
-		graphics->setCursor(430,10);
-		graphics->printf("Shields");
-		for(int i=1;i<=shields;i++) {			
-			graphics->drawCircle(i*22+400, 30, 8, BLUE);
-    }
-		graphics->setCursor(400,20);
+		graphics->setCursor(20,100);
 		graphics->printf("Frames = %d", frames);
-		graphics->setCursor(360,40);
+		graphics->setCursor(20,120);
 		graphics->printf("rockCount = %d", rockCount);
-		graphics->setCursor(360,60);
+		graphics->setCursor(20,140);
 		graphics->printf("shotCount = %d", shotCount);
+		graphics->setCursor(20,160);
+		graphics->printf("Paused status = %d", paused);
 }
 
 void drawShip() {
-	graphics->fillTriangle(
-	player.p.x,player.p.y,player.p.x-5,player.p.y+20,player.p.x+5,player.p.y+20, WHITE);
+	if(shields > 0) {
+		for(int i = 0; i < shields; i++) {
+			graphics->drawCircle(shipCX, shipCY, 20+(i*3), BLUE);
+		}		
+	}
+	graphics->drawLine(shipX,shipY,shipXL,shipYL,WHITE); //Left
+	graphics->drawLine(shipXL,shipYL,shipXR,shipYR,WHITE); ////Right
+	graphics->drawLine(shipXR,shipYR,shipX,shipY,WHITE);//Bottom			
 }
 
 void drawShots(shot_t *head) {
@@ -80,17 +77,6 @@ void drawRocks(rock_t *head) {
 		graphics->drawBitmap(current->p.x,current->p.y,asteroid1, 16,16, WHITE);
 		current = current->next;
   }
-}
-
-void endScreen() {
-	graphics->fillScreen(BLACK);
-	graphics->drawRect(0,0,480,272,WHITE);
-	graphics->setCursor(20, 136);
-	graphics->setTextSize(4);
-	graphics->printf("Game over.");
-	graphics->setCursor(20, 200);
-	graphics->setTextSize(2);
-	graphics->printf("Press start to play again.");
 }
 
 void draw(void)

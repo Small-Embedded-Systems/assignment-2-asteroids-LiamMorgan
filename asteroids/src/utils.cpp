@@ -26,10 +26,12 @@ float map(float value, float lower, float upper, float min, float max)
 int randrange(int from, int to)
 {
     int range = to-from;
+		if ((from + rand()%range) == 0)
+			randrange(from, to);
     return from + rand()%range;
 }
 
 /* Convery degrees to radians */
-const float pi = 3.1415926f;
+//const float pi = 3.1415926f;
 float radians(float degrees) { return degrees/180*pi; }
 
