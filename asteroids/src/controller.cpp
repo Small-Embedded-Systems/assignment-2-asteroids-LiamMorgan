@@ -47,7 +47,7 @@ void controls(void)
 		moveShip();
 	}
 	if(joyStick(up)) {
+		score++;
 	}
 }
-
 
