@@ -21,45 +21,45 @@
 #include "model.h"
 #include "view.h"
 #include "controller.h"
+#include "utils.h"
 
 /* Game state */
 float elapsed_time; 
-int   score;
-int   lives;
+int   score = 0;
+int   lives = 3; int shields = 3;
+float Dt = 0.01f;
+int paused = 0;
+
 rock_t *asteroids;
 shot_t *shots;
 int frames;
 int rockCount; int shotCount;
-struct ship player;
-float Dt = 0.01f;
+double shipCX = 240; double shipCY = 146;
+double shipX, shipY;
+double shipXL = shipCX - 7; double shipXR = shipCX + 7;
+double shipYL = shipCY + 10; double shipYR = shipCY + 10;
 
 Ticker model, view, controller;
-bool paused = true;
+
 /* The single user button needs to have the PullUp resistor enabled */
 DigitalIn userbutton(P2_10,PullUp);
 
 void initialise() {
 		asteroids = static_cast<rock_t*>(malloc(sizeof(rock_t)));
-		asteroids->p.x = 0;asteroids->p.y =0;
-		asteroids->v.x = 2;asteroids->v.y = 2;
+		asteroids->next->p.x = randrange(16, 465);asteroids->next->p.y =  randrange(16, 257);
+		asteroids->next->v.x = randrange(-1, 2);asteroids->next->v.y = randrange(-1, 2);
 		asteroids->next = NULL;
 	
 		shots = static_cast<shot_t*>(malloc(sizeof(shot_t)));
-		shots->next = NULL;	
-	
-		player.p.x = 100; player.p.y = 100;
+		shots->next = NULL;
 }
 
 int main() {
-		srand(time(0));
-		initialise();
-	
+		initialise();	
     init_DBuffer();	
     view.attach( draw, 0.025);
     model.attach( physics, Dt);
-    controller.attach( controls, 0.1);
-	
-    lives = 3;    
+    controller.attach( controls, 0.1);   
     while(true) {
     }
 

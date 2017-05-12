@@ -29,3 +29,7 @@ typedef struct shot_t {
 
 void physics(void);
 void newShot(shot_t *head);
+void moveShip();
+extern float angle, angleMove;
+extern double shipX, shipXL, shipXR, shipY, shipYL, shipYR, shipCX, shipCY;
+extern float pi;
