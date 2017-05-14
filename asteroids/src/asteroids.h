@@ -8,6 +8,7 @@ extern struct shot_t *shots;  /* array of missiles / pointer to linked-list */
 extern const float Dt; /* Time step for physics, needed for consistent motion */
 //////////////////////////////////////////////
 extern int rockCount; extern int shotCount;
-extern int frames;
+extern int frames; extern int endFrames;
 extern int shields;
-extern bool paused;
+extern bool paused; extern bool endGame;
+void resetValues();

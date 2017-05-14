@@ -27,9 +27,10 @@ float map(float value, float lower, float upper, float min, float max)
 int randrange(int from, int to)
 {
     int range = to-from;
-		if ((from + rand()%range) == 0)
+		while ((from + rand()%range) == 0) {
 			randrange(from, to);
-    return from + rand()%range;
+		}
+		return from + rand()%range; 
 }
 
 /* Convery degrees to radians */

@@ -35,18 +35,22 @@ bool joyStick(btnId_t b) {
 void controls(void)
 {
 	if(joyStick(right)) {
-		angle += angleMove;
+		shipRight = !shipRight;
 	}
 	if(joyStick(left)) {
-		angle -= angleMove;
+		shipLeft = !shipLeft;
 	}
-	if(joyStick(centre)) {		
-		newShot(shots);
+	if(joyStick(centre)) {
+			if(paused && endGame) {
+				endGame = !endGame;
+			} else if(paused && !endGame) {
+				paused = !paused;				
+				frames = 0; 
+			} else {
+				newShot(shots);
+			}
 	}
 	if(joyStick(down)) {
-		moveShip();
-	}
-	if(joyStick(up)) {
-		score++;
+		shipGo = !shipGo;
 	}
 }

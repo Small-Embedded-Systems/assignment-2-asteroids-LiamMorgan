@@ -11,12 +11,18 @@
 ///////////////////////////////////
 float pi = 3.1415926f;
 double x, x1, x2, y, y1, y2;
-float angle = 0.0, angleMove = 0.66;
+float angle = 0.0, angleMove = 0.02;
 int radius =15;
 float velX, velY;
-float accel = 1;
-///////////////////////////////////
+bool shipGo = false; bool shipLeft = false; bool shipRight = false;
+double shipCX = 240; double shipCY = 146;
+double shipX, shipY;
+double shipXL = shipCX - 7; double shipXR = shipCX + 7;
+double shipYL = shipCY + 10; double shipYR = shipCY + 10;
 
+int shotX, shotY;
+///////////////////////////////////
+//rock functions
 void newRock(rock_t* head) {
 	if(frames % 100 == 0 && rockCount < 10 ) {
     rock_t* current = head;
@@ -35,12 +41,12 @@ void newRock(rock_t* head) {
 		}
     current->next->next = NULL;
 		rockCount++;
-	}
+	}	
 }
 
 void updateRocks(rock_t* head) {
 	rock_t* current = head;
-		if(current != NULL) {
+		while(current != NULL) {
 			current->p.x += current->v.x;current->p.y += current->v.y;
 			if(current->p.x > 496) {
 				current->p.x = -16;
@@ -57,19 +63,28 @@ void updateRocks(rock_t* head) {
 			if(current->p.x <= shipCX && current->p.x >= shipCX - 15 
 				&& current->p.y >= shipCY - 15 && current->p.y <= shipCY + 15) 
 			{
-				current->p.x = randrange(16, 465);current->p.y =  randrange(16, 257);
+				current->p.x = rand()%480;current->p.y = rand()%272;
 				shields--;
 				if(shields < 0) {
 					lives--;
-					if(lives <= 0)
+					if(lives <= 0) {
+						endGame = 1;
 						paused = 1;
+						endFrames = frames;
+					}
 				}
 			}
+			if(current->p.x <= shotX && current->p.x + 16 >= shotX
+&& current->p.y + 16 >= shotY && current->p.y <= shotY) {
+		current->p.x = rand()%480;
+		current->p.y = rand()%272;
+		score ++;
+   }
 			current = current->next;
-			updateRocks(current);
 	}
 }
- 
+//end Rock functions
+//shot functions
 void newShot(shot_t* head) {
 	shot_t* current = head;
 	while (current->next != NULL) {
@@ -80,17 +95,22 @@ void newShot(shot_t* head) {
 	current->next->v.x = velX/1.5;current->next->v.y = velY/1.5;
 	current->next->age = frames;
 	current->next->next = NULL;
-	shotCount++;
 }
 
 void updateShots(shot_t* head) {
 	shot_t *current = head;
 	while(current != NULL) {
-		current->p.x += current->v.x;current->p.y += current->v.y;
+		if((frames - current->age) >= 200) {
+			current->p.x += NULL;current->p.y += NULL;
+		} else {
+			current->p.x += current->v.x;current->p.y += current->v.y;			
+			shotX = current->p.x; shotY = current->p.y;
+		}
 		current = current->next;
 	}
 }
-
+//end shot functions
+//ship functions
 void shipRot()
 {
     //go through all angles from 0 to 2 * PI radians
@@ -108,19 +128,46 @@ void shipRot()
 	shipYR = y2 + shipCY;
 	velX = (10 * cos (angle));
 	velY = (10 * sin (angle));
+	if(shipLeft) {
+		shipRight = false;
+		angle += angleMove;
+	}
+	if(shipRight) {
+		shipLeft = false;
+		angle -= angleMove;
+	}
 }
 
 void moveShip() {
-	velX = (10 * cos (angle));
-	velY = (10 * sin (angle));
-	shipCX += (velX / accel);
-	shipCY += (velY / accel);					
+	if(shipGo) {
+		velX = (10 * cos (angle));
+		velY = (10 * sin (angle));
+		shipCX += (velX / 15);
+		shipCY += (velY / 15); // (vel/x) slows velocity, higher number slower ship
+
+	}		
 }
 
+void wrapShip() {
+	if (shipCX > 500)
+		shipCX =  -20;
+	if (shipCX < -20)
+		shipCX =  500;
+	if (shipCY > 292)
+		shipCY =  -20;
+	if (shipCY < -20)
+		shipCY =  292;
+	
+}
+//end ship functions
 void physics(void) {
-	frames++;
-	shipRot();
-	newRock(asteroids);	
-	updateRocks(asteroids);
-	updateShots(shots);
+	if(!endGame) {
+		frames++;
+		shipRot();
+		moveShip();
+		wrapShip();
+		newRock(asteroids);	
+		updateRocks(asteroids);
+		updateShots(shots);
+	}		
 }

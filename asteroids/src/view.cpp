@@ -17,7 +17,7 @@
 #include "model.h"
 #include "utils.h"
 #include "objects.h"
-
+int rockCount; int shotCount;
 Display *graphics = Display::theDisplay();
 
 /* double buffering functions */
@@ -36,9 +36,7 @@ void swap_DBuffer(void)
     LPC_LCD->UPBASE = (uint32_t)buffer;
 }
 
-void drawInfo() {
-		graphics->fillScreen(BLACK);
-		graphics->drawRect(0,0,480,272,WHITE);
+void drawInfo() {		
 		for(int i=1;i<=lives;i++) {			
 			graphics->drawTriangle(i*15,22,(i*15)-5,42,(i*15)+5,42, WHITE);
 		}
@@ -53,15 +51,7 @@ void drawInfo() {
 		graphics->printf("Shields");
 		for(int i=1;i<=shields;i++) {			
 			graphics->drawCircle(i*22+400, 30, 8, BLUE);
-		}
-		graphics->setCursor(20,100);
-		graphics->printf("Frames = %d", frames);
-		graphics->setCursor(20,120);
-		graphics->printf("rockCount = %d", rockCount);
-		graphics->setCursor(20,140);
-		graphics->printf("shotCount = %d", shotCount);
-		graphics->setCursor(20,160);
-		graphics->printf("Paused status = %d", paused);
+		}		
 }
 
 void drawShip() {
@@ -91,11 +81,43 @@ void drawRocks(rock_t *head) {
   }
 }
 
-void draw(void)
-{	
-	drawInfo();
-	drawShip();
-	drawShots(shots);
+void startScreen() {
 	drawRocks(asteroids);
+	
+	graphics->setTextSize(5);
+	graphics->setCursor(100,50);
+	graphics->printf("Asteroids");
+	graphics->setTextSize(2);
+	graphics->setCursor(60,150);
+	graphics->printf("Insert coin and press center.");	
+}
+
+void endScreen() {
+	graphics->setTextSize(5);
+	graphics->setCursor(100,50);
+	graphics->printf("Game over.");
+	graphics->setTextSize(2);
+	graphics->setCursor(60,100);
+	graphics->printf("Score = %d.", score);
+	graphics->setCursor(60,125);
+	graphics->printf("You lasted %d seconds.", endFrames/100);	
+	graphics->setCursor(60,150);
+	graphics->printf("Press center to restart.");	
+}
+
+void draw(void){
+	graphics->fillScreen(BLACK);
+	graphics->drawRect(0,0,480,272,WHITE);
+	if(paused && !endGame) {		
+		resetValues();
+		startScreen();
+	}	else if(!paused) {
+		drawShip();
+		drawShots(shots);
+		drawRocks(asteroids);
+		drawInfo();
+	} else if(endGame && paused) {
+		endScreen();
+	}
 	swap_DBuffer();
 }

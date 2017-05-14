@@ -30,6 +30,9 @@ typedef struct shot_t {
 void physics(void);
 void newShot(shot_t *head);
 void moveShip();
+void newRock(rock_t *head);
+void updateRocks(rock_t *head);
 extern float angle, angleMove;
 extern double shipX, shipXL, shipXR, shipY, shipYL, shipYR, shipCX, shipCY;
 extern float pi;
+extern bool shipGo, shipRight, shipLeft;
