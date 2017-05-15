@@ -1,15 +1,17 @@
 /* Controller */
 
 /* C libraries */
-#
-include < stdlib.h > #include < stdint.h > #include < stdbool.h > #include < math.h >
+#include < stdlib.h >
+#include < stdint.h > 
+#include < stdbool.h > 
+#include < math.h >
 
 /* hardware platform libraries */
 #include < mbed.h >
 
 /* asteroids */
-#include "model.h"#
-include "asteroids.h"
+#include "model.h"
+#include "asteroids.h"
 
 /* Joystick 5-way switch
 */
